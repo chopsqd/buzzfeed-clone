@@ -17,7 +17,7 @@ app.use('/quiz-item', async (req: Request, res: Response) => {
         })
         if(response.status === 200) {
             const quizItem: IQuizData = await response.data.data['65def461-fdbf-44db-96e3-708717d59d0d']
-            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
+            res.setHeader('Access-Control-Allow-Origin', '*')
             res.send(quizItem)
         }
     } catch(error) {
