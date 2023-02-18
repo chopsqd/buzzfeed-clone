@@ -1,27 +1,26 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import {IContent, IQuestion} from "../../interfaces";
 import QuestionBlock from "./QuestionBlock";
 
-type QuestionsBlockProps = {
-    quizItem: IContent
-    chosenAnswerItems: string[]
-    unansweredQuestionIds: number[] | undefined
-    setChosenAnswerItems: Function
-    setUnansweredQuestionIds: Function
-}
-
-const QuestionsBlock: React.FC<QuestionsBlockProps> = ({
-                                                           quizItem,
-                                                           setChosenAnswerItems,
-                                                           setUnansweredQuestionIds,
-                                                           unansweredQuestionIds,
-                                                           chosenAnswerItems
-                                                       }) => {
+const QuestionsBlock = ({
+                            quizItem,
+                            setChosenAnswerItems,
+                            setUnansweredQuestionIds,
+                            unansweredQuestionIds,
+                            chosenAnswerItems
+                        }: {
+                            quizItem: IContent
+                            chosenAnswerItems: string[]
+                            unansweredQuestionIds: number[] | undefined
+                            setChosenAnswerItems: Function
+                            setUnansweredQuestionIds: Function
+                        },
+                        ref: React.LegacyRef<HTMLHeadingElement> | undefined) => {
     return (
         <>
-            <h2 className={"title-block"} id={String(quizItem.id)}>{quizItem.text}</h2>
+            <h2 className={"title-block"} ref={ref}>{quizItem.text}</h2>
             <div className={"questions-container"}>
-                {quizItem?.questions.map((question: IQuestion, index) =>
+                {quizItem?.questions.map((question: IQuestion, index: number) =>
                     <QuestionBlock
                         key={index}
                         quizItemId={quizItem.id}
@@ -37,4 +36,4 @@ const QuestionsBlock: React.FC<QuestionsBlockProps> = ({
     );
 };
 
-export default QuestionsBlock;
+export default forwardRef(QuestionsBlock);
